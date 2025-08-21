@@ -138,7 +138,7 @@ HTML = '''
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            background: {{ background }}; 
             margin: 0; 
             padding: 20px; 
             min-height: 100vh;
@@ -147,9 +147,9 @@ HTML = '''
             justify-content: center;
         }
         .container { 
-            min-width: 400px;
+            min-width: 320px;
             max-width: 600px;
-            width: auto;
+            width: 90%;
             background: rgba(255, 255, 255, 0.95); 
             padding: 2.5em; 
             border-radius: 20px; 
@@ -190,7 +190,7 @@ HTML = '''
         .btn-primary { 
             width: 100%; 
             padding: 1em; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            background: {{ background }}; 
             color: #fff; 
             border: none; 
             border-radius: 12px; 
@@ -199,69 +199,208 @@ HTML = '''
             transition: all 0.3s ease;
             font-weight: 500;
             letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .btn-primary:hover { 
             transform: translateY(-2px);
-            box-shadow: 0 7px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            filter: brightness(1.1);
         }
         .btn-toggle {
             position: absolute;
             top: 20px;
             right: 20px;
             padding: 0.5em 1em;
-            background: rgba(255, 255, 255, 0.9);
-            color: #667eea;
-            border: 2px solid #667eea;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border: 2px solid rgba(255, 255, 255, 0.8);
             border-radius: 20px;
             font-size: 0.9em;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            backdrop-filter: blur(10px);
         }
         .btn-toggle:hover {
-            background: #667eea;
-            color: white;
+            background: rgba(255, 255, 255, 1);
+            color: #222;
             transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
         .result { 
             margin-top: 2em; 
             text-align: center; 
             font-size: 1.3em; 
-            color: #2c3e50;
+            color: #1a1a1a;
             padding: 1.5em;
-            background: rgba(102, 126, 234, 0.05);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .result strong {
-            color: #667eea;
+            color: #2c3e50;
             font-size: 1.2em;
+            font-weight: 600;
         }
         #detailedAge {
             margin-top: 15px !important;
             font-size: 1em !important;
-            color: #7f8c8d !important;
+            color: #2c3e50 !important;
             font-family: 'Courier New', monospace;
-            background: rgba(0,0,0,0.02);
+            background: rgba(0,0,0,0.05);
             padding: 10px;
             border-radius: 8px;
+            font-weight: 500;
         }
         .joke {
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             color: #2c3e50;
-            padding: 1.5em;
+            padding: 2em;
             border-radius: 12px;
             margin-top: 1em;
             font-style: italic;
-            font-size: 1.1em;
+            font-size: 1.2em;
             text-align: center;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
         }
         .date-selects {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .date-selects select {
             margin-bottom: 1.5em;
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 1.5em;
+                border-radius: 15px;
+                min-width: 280px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 1em;
+            }
+            .btn-toggle {
+                top: 15px;
+                right: 15px;
+                padding: 0.4em 0.8em;
+                font-size: 0.8em;
+            }
+            .result {
+                font-size: 1.1em;
+                padding: 1.2em;
+            }
+            .joke {
+                font-size: 1em;
+                padding: 1.5em;
+            }
+            #detailedAge {
+                font-size: 0.9em !important;
+            }
+            .date-selects {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .date-selects select {
+                flex: none;
+                margin-bottom: 0.8em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.2em;
+                border-radius: 12px;
+                min-width: 260px;
+                width: 98%;
+            }
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 0.8em;
+                letter-spacing: 0px;
+            }
+            .btn-toggle {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 1em;
+                width: 100%;
+                text-align: center;
+            }
+            label {
+                font-size: 1em;
+                margin-bottom: 0.6em;
+            }
+            input[type="date"], select {
+                padding: 0.8em;
+                margin-bottom: 1.2em;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            .btn-primary {
+                padding: 0.9em;
+                font-size: 1em;
+            }
+            .result {
+                font-size: 1em;
+                padding: 1em;
+                margin-top: 1.5em;
+            }
+            .joke {
+                font-size: 0.95em;
+                padding: 1.2em;
+            }
+            #detailedAge {
+                font-size: 0.8em !important;
+                padding: 8px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .container {
+                padding: 1em;
+                min-width: 240px;
+                width: 98%;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+            .result {
+                font-size: 0.95em;
+            }
+            .joke {
+                font-size: 0.9em;
+                padding: 1em;
+            }
+        }
+        
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 700px;
+                padding: 3em;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .result {
+                font-size: 1.4em;
+            }
+            .joke {
+                font-size: 1.3em;
+                padding: 2.5em;
+            }
         }
     </style>
 </head>
@@ -464,8 +603,24 @@ def index():
     birthdate = ''
     joke = None
     
+    # Generate random background colors for dynamic site appearance
+    import random
+    bg_colors = [
+        "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", 
+        "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+        "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+        "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+        "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+        "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+        "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+        "linear-gradient(135deg, #96fbc4 0%, #f9f586 100%)"
+    ]
+    background = random.choice(bg_colors)
+    
     funny_jokes = [
-        "Wow! You're older than sliced bread! (Literally, it was invented in 1928)",
+        "Wow! You're older than sliced bread! (Literally, it was invented in 1928) 🍞",
         "Are you sure you didn't personally know Moses? 🏺",
         "I bet you remember when the Dead Sea was just feeling a little under the weather! 🌊",
         "You must have some great stories from the Civil War! ⚔️",
@@ -474,7 +629,12 @@ def index():
         "You're so old, your birth certificate is written in hieroglyphics! 📜",
         "Time to update your driver's license... oh wait, cars weren't invented yet! 🏇",
         "I bet you knew Methuselah personally! 👴",
-        "Your age has more digits than my phone number! 📱"
+        "Your age has more digits than my phone number! 📱",
+        "Were you around when dinosaurs roamed the Earth? 🦕",
+        "I bet you remember when the Earth was flat! 🌍",
+        "Did you personally witness the invention of the wheel? ⚙️",
+        "You're so old, you make fossils look young! 🦴",
+        "I think you predate carbon dating! ⚛️"
     ]
     
     if request.method == 'POST':
@@ -487,18 +647,20 @@ def index():
         try:
             bdate = datetime.strptime(birthdate, '%Y-%m-%d')
             today = datetime.today()
-            age = today.year - bdate.year - ((today.month, today.day) < (bdate.month, bdate.day))
+            calculated_age = today.year - bdate.year - ((today.month, today.day) < (bdate.month, bdate.day))
             
-            # Check if age is over 125 years
-            if age > 125:
-                import random
+            # Check if age is over 125 years (show joke instead of age)
+            if calculated_age > 125:
                 joke = random.choice(funny_jokes)
                 age = None  # Don't show the age, just the joke
+            else:
+                age = calculated_age
                 
-        except Exception:
+        except Exception as e:
+            print(f"Error calculating age: {e}")
             age = None
             
-    return render_template_string(HTML, age=age, birthdate=birthdate, joke=joke)
+    return render_template_string(HTML, age=age, birthdate=birthdate, joke=joke, background=background)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
