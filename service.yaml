@@ -1,0 +1,30 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: birthdaycalc
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "1"
+        run.googleapis.com/cpu-throttling: "true"
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: gcr.io/PROJECT_ID/birthdaycalc:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        env:
+        - name: PORT
+          value: "5000"
+  traffic:
+  - percent: 100
+    latestRevision: true
