@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: birthdaycalc
+  name: bdaycalcwebappv082025
   annotations:
     run.googleapis.com/ingress: all
     run.googleapis.com/ingress-status: all
@@ -15,7 +15,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: gcr.io/PROJECT_ID/birthdaycalc:latest
+      - image: gcr.io/PROJECT_ID/bdaycalcwebappv082025:latest
         ports:
         - containerPort: 5000
         resources:
